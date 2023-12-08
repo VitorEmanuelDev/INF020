@@ -64,6 +64,7 @@ Instale o servidor PostgreSQL e crie os usuários necessários.
 Crie o banco de dados e as tabelas do projeto conforme os arquivos.
 
     https://www.atlassian.com/data/admin/how-to-list-databases-and-tables-in-postgresql-using-psql#:~:text=To%20view%20all%20of%20the,command%20or%20its%20shortcut%20%5Cl%20.
+    
     https://blog.devart.com/create-table-in-postgresql.html#:~:text=accessed%20and%20retrieved.-,Creating%20a%20table%20using%20the%20PostgreSQL%20CREATE%20TABLE%20statement,(length)%20column_contraint%2C%20table_constraints%20)%3B
 
 Execute os gatilhos do projeto.
