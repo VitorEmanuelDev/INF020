@@ -99,35 +99,55 @@ def delete_from_users():
 
 @app.post("/api/users/read")
 def read_from_users():
-
+    
     data = request.get_json()
-    user_name = ''
-
-    conn_main, cursor_main = connect_to_database('postgres')
-    # conn_1, cursor_1 = connect_to_database('replica1')
-    # conn_2, cursor_2 = connect_to_database('replica2')
-    # conn_3, cursor_3 = connect_to_database('replica3')
-
     id = data["id"]
-    cursor_main.execute(SELECT_USER,(id,))
-    # cursor_1.execute(SELECT_USER, (id,))
-    # cursor_2.execute(SELECT_USER, (id,))
-    # cursor_3.execute(SELECT_USER, (id,))
-    users = cursor_main.fetchall()
+    users = None
 
-    conn_main.commit() 
-    # conn_1.commit() 
-    # conn_2.commit() 
-    # conn_3.commit() 
+    if users == None:
+        try:
+            conn_main, cursor_main = connect_to_database('postgres')
+            cursor_main.execute(SELECT_USER,(id,))
+            users = cursor_main.fetchall()
+            conn_main.commit() 
+            cursor_main.close() 
+            conn_main.close()
+        except:
+            users = None
+    
+    if users == None:
+        try:
+            conn_1, cursor_1 = connect_to_database('replica1')
+            cursor_1.execute(SELECT_USER, (id,))
+            users = cursor_1.fetchall()
+            conn_1.commit()
+            cursor_1.close() 
+            conn_1.close() 
+        except:
+            users = None
 
-    cursor_main.close() 
-    conn_main.close()
-    # cursor_1.close() 
-    # conn_1.close() 
-    # cursor_2.close() 
-    # conn_2.close() 
-    # cursor_3.close() 
-    # conn_3.close()  
+    if users == None:
+        try:
+            conn_2, cursor_2 = connect_to_database('replica2')
+            cursor_2.execute(SELECT_USER, (id,))
+            users = cursor_2.fetchall()
+            conn_2.commit()
+            cursor_2.close() 
+            conn_2.close() 
+        except:
+            users = None
+
+    if users == None:
+        try:
+            conn_3, cursor_3 = connect_to_database('replica3')
+            cursor_3.execute(SELECT_USER, (id,))
+            users = cursor_3.fetchall()
+            conn_3.commit()
+            cursor_3.close() 
+            conn_3.close() 
+        except:
+            users = None
+
 
     return {"message": f"{users} fetched"}
 
@@ -234,35 +254,55 @@ def delete_from_teachers():
 def read_from_teachers():
 
     data = request.get_json()
-    user_name = ''
-
-    conn_main, cursor_main = connect_to_database('postgres')
-    # conn_1, cursor_1 = connect_to_database('replica1')
-    # conn_2, cursor_2 = connect_to_database('replica2')
-    # conn_3, cursor_3 = connect_to_database('replica3')
-
     id = data["id"]
-    cursor_main.execute(SELECT_TEACHER,(id,))
-    # cursor_1.execute(SELECT_TEACHER, (id,))
-    # cursor_2.execute(SELECT_TEACHER, (id,))
-    # cursor_3.execute(SELECT_TEACHER, (id,))
-    users = cursor_main.fetchall()
+    teachers = None
 
-    conn_main.commit() 
-    # conn_1.commit() 
-    # conn_2.commit() 
-    # conn_3.commit() 
+    if teachers == None:
+        try:
+            conn_main, cursor_main = connect_to_database('postgres')
+            cursor_main.execute(SELECT_TEACHER,(id,))
+            teachers = cursor_main.fetchall()
+            conn_main.commit() 
+            cursor_main.close() 
+            conn_main.close()
+        except:
+            teachers = None
+    
+    if teachers == None:
+        try:
+            conn_1, cursor_1 = connect_to_database('replica1')
+            cursor_1.execute(SELECT_TEACHER, (id,))
+            teachers = cursor_1.fetchall()
+            conn_1.commit()
+            cursor_1.close() 
+            conn_1.close() 
+        except:
+            teachers = None
 
-    cursor_main.close() 
-    conn_main.close()
-    # cursor_1.close() 
-    # conn_1.close() 
-    # cursor_2.close() 
-    # conn_2.close() 
-    # cursor_3.close() 
-    # conn_3.close()  
+    if teachers == None:
+        try:
+            conn_2, cursor_2 = connect_to_database('replica2')
+            cursor_2.execute(SELECT_TEACHER, (id,))
+            teachers = cursor_2.fetchall()
+            conn_2.commit()
+            cursor_2.close() 
+            conn_2.close() 
+        except:
+            teachers = None
 
-    return {"message": f"{users} fetched"}
+    if teachers == None:
+        try:
+            conn_3, cursor_3 = connect_to_database('replica3')
+            cursor_3.execute(SELECT_TEACHER, (id,))
+            teachers = cursor_3.fetchall()
+            conn_3.commit()
+            cursor_3.close() 
+            conn_3.close() 
+        except:
+            teachers = None
+
+
+    return {"message": f"{teachers} fetched"}
 
 @app.post("/api/teachers/update")
 def update_on_teachers():
